@@ -77,6 +77,7 @@ namespace TownOfUs
         Jail,
         Collect,
         Retribution,
+        Camp,
 
         BypassKill,
         BypassMultiKill,

@@ -30,7 +30,7 @@ namespace TownOfUs
     public class TownOfUs : BasePlugin
     {
         public const string Id = "com.slushiegoose.townofus";
-        public const string VersionString = "5.1.2";
+        public const string VersionString = "5.2.0";
         public static System.Version Version = System.Version.Parse(VersionString);
         public const string VersionTag = "<color=#ff33fc></color>";
 
@@ -41,7 +41,6 @@ namespace TownOfUs
         public static Sprite SwapperSwitch;
         public static Sprite SwapperSwitchDisabled;
         public static Sprite Footprint;
-        public static Sprite NormalKill;
         public static Sprite MedicSprite;
         public static Sprite SeerSprite;
         public static Sprite SampleSprite;
@@ -106,12 +105,10 @@ namespace TownOfUs
         public static Sprite CollectSprite;
         public static Sprite ReapSprite;
         public static Sprite SoulSprite;
+        public static Sprite WatchSprite;
+        public static Sprite CampSprite;
+        public static Sprite ShootSprite;
 
-        public static Sprite SettingsButtonSprite;
-        public static Sprite CrewSettingsButtonSprite;
-        public static Sprite NeutralSettingsButtonSprite;
-        public static Sprite ImposterSettingsButtonSprite;
-        public static Sprite ModifierSettingsButtonSprite;
         public static Sprite ToUBanner;
         public static Sprite UpdateTOUButton;
         public static Sprite UpdateSubmergedButton;
@@ -125,13 +122,12 @@ namespace TownOfUs
 
         private static DLoadImage _iCallLoadImage;
 
-
         private Harmony _harmony;
 
         public static ConfigEntry<bool> DeadSeeGhosts { get; set; }
 
         public static string RuntimeLocation;
-        
+
         public override void Load()
         {
             RuntimeLocation = Path.GetDirectoryName(Assembly.GetAssembly(typeof(TownOfUs)).Location);
@@ -149,7 +145,6 @@ namespace TownOfUs
             SwapperSwitch = CreateSprite("TownOfUs.Resources.SwapperSwitch.png");
             SwapperSwitchDisabled = CreateSprite("TownOfUs.Resources.SwapperSwitchDisabled.png");
             Footprint = CreateSprite("TownOfUs.Resources.Footprint.png");
-            NormalKill = CreateSprite("TownOfUs.Resources.NormalKill.png");
             MedicSprite = CreateSprite("TownOfUs.Resources.Medic.png");
             SeerSprite = CreateSprite("TownOfUs.Resources.Seer.png");
             SampleSprite = CreateSprite("TownOfUs.Resources.Sample.png");
@@ -214,12 +209,10 @@ namespace TownOfUs
             CollectSprite = CreateSprite("TownOfUs.Resources.Collect.png");
             ReapSprite = CreateSprite("TownOfUs.Resources.Reap.png");
             SoulSprite = CreateSprite("TownOfUs.Resources.Soul.png");
+            WatchSprite = CreateSprite("TownOfUs.Resources.Watch.png");
+            CampSprite = CreateSprite("TownOfUs.Resources.Camp.png");
+            ShootSprite = CreateSprite("TownOfUs.Resources.Shoot.png");
 
-            SettingsButtonSprite = CreateSprite("TownOfUs.Resources.SettingsButton.png");
-            CrewSettingsButtonSprite = CreateSprite("TownOfUs.Resources.Crewmate.png");
-            NeutralSettingsButtonSprite = CreateSprite("TownOfUs.Resources.Neutral.png");
-            ImposterSettingsButtonSprite = CreateSprite("TownOfUs.Resources.Impostor.png");
-            ModifierSettingsButtonSprite = CreateSprite("TownOfUs.Resources.Modifiers.png");
             ToUBanner = CreateSprite("TownOfUs.Resources.TownOfUsBanner.png");
             UpdateTOUButton = CreateSprite("TownOfUs.Resources.UpdateToUButton.png");
             UpdateSubmergedButton = CreateSprite("TownOfUs.Resources.UpdateSubmergedButton.png");
@@ -233,6 +226,21 @@ namespace TownOfUs
             ClassInjector.RegisterTypeInIl2Cpp<RainbowBehaviour>();
             ClassInjector.RegisterTypeInIl2Cpp<CrimeScene>();
             ClassInjector.RegisterTypeInIl2Cpp<Soul>();
+
+            for (int i = 1; i <= 5; i++)
+            {
+                try
+                {
+                    var filePath = Application.persistentDataPath;
+                    var file = filePath + $"/GameSettings-Slot{i}";
+                    if (File.Exists(file))
+                    {
+                        string newFile = Path.Combine(filePath, $"Saved Settings {i}.txt");
+                        File.Move(file, newFile);
+                    }
+                }
+                catch { }
+            }
 
             // RegisterInIl2CppAttribute.Register();
 

@@ -44,6 +44,8 @@ namespace TownOfUs
         Warden,
         Jailor,
         SoulCollector,
+        Lookout,
+        Deputy,
 
         Miner,
         Swooper,
@@ -58,6 +60,7 @@ namespace TownOfUs
         Warlock,
         Venerer,
         Hypnotist,
+        Scavenger,
 
         Crewmate,
         Impostor,
@@ -84,7 +87,9 @@ namespace TownOfUs
         Underdog,
         Frosty,
         SixthSense,
-        Shy
+        Shy,
+        Mini,
+        Saboteur
     }
 
     public enum AbilityEnum
